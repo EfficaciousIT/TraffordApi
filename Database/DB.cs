@@ -102,12 +102,19 @@ namespace TraffordSchool.Database
                         com.Parameters.AddWithValue("@command", command);
                         com.Parameters.AddWithValue("@intAcademic_id", dashboard.intAcademic_id);
                     }
-                    else if (command == "genderwiseStudent" || command == "NoticeBoard" || command == "AllMessageToStudent")
+                    else if (command == "genderwiseStudent" || command == "NoticeBoard" || command == "AllMessageToStudent" || command == "NoticeBoardTeacher" || command == "NoticeBoardStaff")
                     {
                         com.Parameters.AddWithValue("@type", command);
                         com.Parameters.AddWithValue("@AcademicID", dashboard.intAcademic_id);
                         com.Parameters.AddWithValue("@SchoolId", dashboard.intSchool_id);
 
+                    }
+                    else if(command == "NoticeBoardStudent")
+                    {
+                        com.Parameters.AddWithValue("@type", command);
+                        com.Parameters.AddWithValue("@AcademicID", dashboard.intAcademic_id);
+                        com.Parameters.AddWithValue("@SchoolId", dashboard.intSchool_id);
+                        com.Parameters.AddWithValue("@intStandard_id", dashboard.intstanderd_id);
                     }
                     else if (command == "AllMessageToDivision")
                     {
@@ -1322,6 +1329,112 @@ namespace TraffordSchool.Database
                 }
             }
         }
+        public DataSet OnlineClassTimetable(string command, OnlineClassTimetable onlineClassTimetable)
+        {
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                try
+                {
+                    String query = "usp_onlineLecture";
+                    SqlCommand com = new SqlCommand(query, con);
+                    con.Open();
+                    com.CommandType = CommandType.StoredProcedure;
+                    if (command == "StandardWiseList")
+                    {
+                        com.Parameters.AddWithValue("@command", command);
+                        com.Parameters.AddWithValue("@intAcademic_id", onlineClassTimetable.intAcademic_id);
+                        com.Parameters.AddWithValue("@intSchool_id", onlineClassTimetable.intSchool_id);
+                        com.Parameters.AddWithValue("@intStandard_id", onlineClassTimetable.intStandard_id);
+                        com.Parameters.AddWithValue("@dtLecture_date", onlineClassTimetable.dtLecture_date);
+                    }
+                    else if (command == "TeacherWiseList")
+                    {
+                        com.Parameters.AddWithValue("@command", command);
+                        com.Parameters.AddWithValue("@intAcademic_id", onlineClassTimetable.intAcademic_id);
+                        com.Parameters.AddWithValue("@intSchool_id", onlineClassTimetable.intSchool_id);
+                        com.Parameters.AddWithValue("@intTeacher_id", onlineClassTimetable.intTeacher_id);
+                        com.Parameters.AddWithValue("@dtLecture_date", onlineClassTimetable.dtLecture_date);
+                    }
+                    else if (command == "AdminWiseList")
+                    {
+                        com.Parameters.AddWithValue("@command", command);
+                        com.Parameters.AddWithValue("@intAcademic_id", onlineClassTimetable.intAcademic_id);
+                        com.Parameters.AddWithValue("@intSchool_id", onlineClassTimetable.intSchool_id);
+                        com.Parameters.AddWithValue("@dtLecture_date", onlineClassTimetable.dtLecture_date);
+                    }
+                    else if (command == "GetOnliceClassDetails")
+                    {
+                        com.Parameters.AddWithValue("@command", command);
+                        com.Parameters.AddWithValue("@intSchool_id", onlineClassTimetable.intSchool_id);
+                        com.Parameters.AddWithValue("@intOnlinelecture_id", onlineClassTimetable.intOnlinelecture_id);
+                    }
+                    SqlDataAdapter da = new SqlDataAdapter(com);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds, "OnlineTimetable");
+                    return (ds);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    con.Close();
+                    con.Dispose();
+                }
+            }
+        }
+
+        public DataSet OnlineClassSchedule(string command, OnlineClassSchedule onlineClassSchedule)
+        {
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                try
+                {
+                    String query = "usp_OnlineNocticeBoard";
+                    SqlCommand com = new SqlCommand(query, con);
+                    con.Open();
+                    com.CommandType = CommandType.StoredProcedure;
+                    if (command == "StudentNotification")
+                    {
+                        com.Parameters.AddWithValue("@command", command);
+                        // com.Parameters.AddWithValue("@intAcademic_id", onlineClassSchedule.intAcademic_id);
+                        com.Parameters.AddWithValue("@intSchool_id", onlineClassSchedule.intSchool_id);
+                        com.Parameters.AddWithValue("@intStandard_id", onlineClassSchedule.intStandard_id);
+                        com.Parameters.AddWithValue("@dtLecture_date", onlineClassSchedule.dtLecture_date);
+                    }
+                    else if (command == "TeacherNotification")
+                    {
+                        com.Parameters.AddWithValue("@command", command);
+                        //  com.Parameters.AddWithValue("@intAcademic_id", onlineClassSchedule.intAcademic_id);
+                        com.Parameters.AddWithValue("@intSchool_id", onlineClassSchedule.intSchool_id);
+                        com.Parameters.AddWithValue("@intTeacher_id", onlineClassSchedule.intTeacher_id);
+                        com.Parameters.AddWithValue("@dtLecture_date", onlineClassSchedule.dtLecture_date);
+                    }
+                    else if (command == "AdminNotification")
+                    {
+                        com.Parameters.AddWithValue("@command", command);
+                        //  com.Parameters.AddWithValue("@intAcademic_id", onlineClassSchedule.intAcademic_id);
+                        com.Parameters.AddWithValue("@intSchool_id", onlineClassSchedule.intSchool_id);
+                        com.Parameters.AddWithValue("@dtLecture_date", onlineClassSchedule.dtLecture_date);
+                    }
+                    SqlDataAdapter da = new SqlDataAdapter(com);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds, "OnlineSchedule");
+                    return (ds);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    con.Close();
+                    con.Dispose();
+                }
+            }
+        }
+
     }
 
 }

@@ -121,3 +121,5 @@ D:\Application Live\NPST\Rajasthan\TraffordSchool\TraffordSchool\bin\System.Web.
 D:\Application Live\NPST\Rajasthan\TraffordSchool\TraffordSchool\obj\Debug\TraffordSchool.csprojResolveAssemblyReference.cache
 D:\Application Live\NPST\Rajasthan\TraffordSchool\TraffordSchool\obj\Debug\TraffordSchool.dll
 D:\Application Live\NPST\Rajasthan\TraffordSchool\TraffordSchool\obj\Debug\TraffordSchool.pdb
+E:\Efficacious\Git_Projects\TraffordAPI\TraffordApi\obj\Debug\TraffordSchool.dll
+E:\Efficacious\Git_Projects\TraffordAPI\TraffordApi\obj\Debug\TraffordSchool.pdb
